@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getRows } from './adapters/main';
+import CopyButton from './components/CopyButton';
 
 getRows();
 
@@ -16,10 +17,9 @@ const App = () => {
 
   return <div>
     <h1>Etsy Helper</h1>
-    <ol style={{display: 'flex', flexWrap: 'wrap'}}>
+    <ol>
     {
       rows && rows.map((row) => {
-        console.log('row: ', row);
         const formatDescription = ({measurements, amount, info}) => {
           let result = '';
           const finalMeasures = measurements.replace(/( inches)|( in\.)|( in)/g, '')
@@ -29,20 +29,34 @@ const App = () => {
           for (let i = 0; i < infoArr.length; i++) {
             let text = infoArr[i];
             text = text.replaceAll('Sentiment', 'Shop name')
-            // text = text.replaceAll("Stampin' Up Logo on back", "")
             result += `${text}${i === infoArr.length - 1 ? '' : ',\n'}`;
           }
           return result;
         }
         return <li key = {row.timestamp} className="card">
-          <h2>Name:</h2>
-          <input value={row.name} />
-          <h3>Materials</h3>
-          <input value={row.materials} />
-          <h3>Description</h3>
-          <textarea value={formatDescription(row)} />
-          <h3>Weight</h3>
-          <input value={row.weight}/>
+          <div className='section name'>
+            <h2>{row.name}</h2>
+            <CopyButton buttonText='Name' copyValue={row.name}></CopyButton>
+            <hr />
+          </div>
+
+          <div className='section materials'>
+            <h3>Materials</h3>
+            <p>{row.materials}</p>
+            <CopyButton buttonText='Materials' copyValue={row.materials}></CopyButton>
+            <hr />
+          </div>
+
+          <div className='section description'>
+            <h3>Description</h3>
+            <pre>{formatDescription(row)}</pre>
+            <CopyButton buttonText='Description' copyValue={formatDescription(row)}></CopyButton>
+            <hr />
+          </div>
+          <div className='section weight'>
+            <h3>Weight: {row.weight}</h3>
+            <CopyButton buttonText='Weight' copyValue={row.weight}></CopyButton>
+          </div>
         </li>
       })
     }
