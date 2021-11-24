@@ -34,7 +34,7 @@ module.exports = {
     devtool: 'source-map',
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Deploy Designer',
+            title: 'Etsy Helper',
             template: 'assets/index.html'
         }),
     ],
@@ -44,5 +44,8 @@ module.exports = {
         },
         compress: true,
         port: 9000,
+        proxy: {
+          '/api/**': 'http://localhost:8080'
+        }
     }
 }
