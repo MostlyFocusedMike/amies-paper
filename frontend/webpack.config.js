@@ -43,7 +43,7 @@ module.exports = {
             directory: './build',
         },
         compress: true,
-        port: 9000,
+        port: 80,
         proxy: {
           '/api/**': 'http://localhost:8080'
         }
