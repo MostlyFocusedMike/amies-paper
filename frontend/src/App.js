@@ -56,7 +56,9 @@ const App = () => {
           <div className='section weight'>
             <h3>Weight: {row.weight}</h3>
             <CopyButton buttonText='Weight' copyValue={row.weight}></CopyButton>
+            <hr />
           </div>
+          <p className='timestamp'>Posted: {row.timestamp}</p>
         </li>
       })
     }

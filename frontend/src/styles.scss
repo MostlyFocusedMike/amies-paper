@@ -61,6 +61,7 @@ html {
 
       hr {
         border: 1px solid rgb(55, 55, 55);
+        margin-top: 1rem;
         width: 80%;
       }
     }
@@ -69,5 +70,9 @@ html {
   p, pre {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: rgb(55, 55, 55);
+  }
+
+  p.timestamp {
+    text-align: center;
   }
 }
