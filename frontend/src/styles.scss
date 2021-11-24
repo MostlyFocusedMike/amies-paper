@@ -7,3 +7,17 @@ li {
     margin: 0;
     list-style: none;
 }
+
+.card {
+  border: 0.1rem solid black;
+  width: 20rem;
+  margin: 1rem;
+  input {
+    width: 95%;
+  }
+}
+
+textarea {
+  height: 7rem;
+  width: 90%;
+}

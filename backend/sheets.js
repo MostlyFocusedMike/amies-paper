@@ -31,7 +31,7 @@ class SheetsWrapper {
         }
         final.push(objRow)
       }
-      return final;
+      return final.reverse();
   }
 
   getRows = async (A1NotationRange = 'A2:G') => {
