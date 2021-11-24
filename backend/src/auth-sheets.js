@@ -3,8 +3,8 @@ const readlineSync = require('readline-sync');
 const { google } = require('googleapis');
 const path = require('path');
 
-const TOKEN_PATH = path.join(__dirname,'token.json');
-const CREDENTIALS_PATH = path.join(__dirname,'credentials.json');
+const TOKEN_PATH = path.join(__dirname,'..', 'token.json');
+const CREDENTIALS_PATH = path.join(__dirname, '..', 'credentials.json');
 
 const saveTokensToFile = (tokens) => {
   try {

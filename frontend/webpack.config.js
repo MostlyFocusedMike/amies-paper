@@ -6,7 +6,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
-        path: path.join(__dirname, './build'),
+        path: path.join(__dirname, '..', 'backend', 'build'),
     },
     module: {
         rules: [
@@ -43,9 +43,9 @@ module.exports = {
             directory: './build',
         },
         compress: true,
-        port: 80,
+        port: 9000,
         proxy: {
-          '/api/**': 'http://localhost:8080'
+          '/api/**': 'http://localhost:80'
         }
     }
 }
