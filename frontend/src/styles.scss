@@ -47,13 +47,15 @@ html {
         color: rgb(247, 247, 247);
         background-color: #4e25cb;
         border: none;
-        border-radius: 1rem;
+        border-radius: 0.2rem;
+        box-shadow: 0.1rem 0.2rem rgb(97, 97, 97);
         &:hover {
           background-color: #240090;
         }
         &:active {
           background-color: #0C0032;
-          transform: translateY(2px);
+          transform: translateY(0.1rem);
+          box-shadow: 0 0.1rem rgb(52, 52, 52);
         }
       }
 
