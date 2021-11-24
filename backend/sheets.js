@@ -3,8 +3,8 @@ const authorize = require('./auth-sheets')
 
 class SheetsWrapper {
   constructor() {
-    // this.sheetId = '1fXKCP8H9-rdLKg-WRS9PcOVeLWFMrwS2QlMkR-QSYkk';
-    this.sheetId = '1aXu0bNh1kAmhDgLyjFQfHR1OmClwwTdiOUkRcmzfHSA'; // testing
+    this.sheetId = '1fXKCP8H9-rdLKg-WRS9PcOVeLWFMrwS2QlMkR-QSYkk';
+    // this.sheetId = '1aXu0bNh1kAmhDgLyjFQfHR1OmClwwTdiOUkRcmzfHSA'; // testing
     this.idxToKey = {
         0: 'timestamp',
         1: 'name',
