@@ -43,20 +43,20 @@ class SheetsWrapper {
   convertKeysToIdxs = (rowObj) => {
     const result = [];
     for (let i = 0; i < this.numOfColumns; i++) {
-      result.push(rowObj[this.idxToKey[i]])
+      result.push(rowObj[this.idxToKey[i]]);
     }
     return result;
   }
 
-  getRows = async (A1NotationRange = 'A2:G') => {
+  getRows = async (A1NotationRange = 'A2:H') => {
     const request = {
       spreadsheetId: this.sheetId,
       range: A1NotationRange,
-    }
+    };
 
     const sheets = await this.spreadsheets()
     const {data: { values }} = await sheets.values.get(request);
-    return this.convertIdxsToKeys(values, true);
+    return this.convertIdxsToKeys(values);
   }
 
   changeRowsUtil = async (A1NotationRange, rows, type) => {

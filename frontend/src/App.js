@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { getRows } from './adapters/main';
+import { getRows, updateRow } from './adapters/main';
 import CopyButton from './components/CopyButton';
-
-getRows();
 
 const App = () => {
   const [rows, setRows] = useState(null)
   useEffect(() => {
     const loadRows = async () => {
       const rows = await getRows();
-      console.log('hello/: ', );
       setRows(rows);
-    }
+    };
     loadRows();
   }, []);
+
+  const handleCheck = async (e) => {
+    const newRows = [...rows];
+    const row = rows[e.target.dataset.idx];
+    row.published = e.target.checked;
+    await updateRow(row);
+    setRows(newRows);
+  }
 
   return <div>
     <h1>Etsy Helper</h1>
     <ol>
     {
-      rows && rows.map((row) => {
+      rows && rows.map((row, idx) => {
         const formatDescription = ({measurements, amount, info}) => {
           let result = '';
           const finalMeasures = measurements.replace(/( inches)|( in\.)|( in)/g, '')
@@ -34,6 +39,7 @@ const App = () => {
           return result;
         }
         return <li key = {row.timestamp} className="card">
+          <p>{row.published ? 'Published' : 'Not Published'}</p>
           <div className='section name'>
             <h2>{row.name}</h2>
             <CopyButton buttonText='Name' copyValue={row.name}></CopyButton>
@@ -59,7 +65,7 @@ const App = () => {
             <hr />
           </div>
           <p className='timestamp'>Posted: {row.timestamp}</p>
-          <p>{row.id}</p>
+          <input type='checkbox' checked={row.published || false} data-idx={idx} onChange={handleCheck} />
         </li>
       })
     }
