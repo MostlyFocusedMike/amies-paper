@@ -26,13 +26,12 @@ function copyToClipboard(textToCopy) {
 }
 
 const CopyButton = ({buttonText, copyValue}) => {
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
     copyToClipboard(copyValue)
       .then(() => console.log('text copied !'))
       .catch(() => console.log('error'));
   }
-  return <button onClick={handleClick}>Copy {buttonText}</button>
+  return <input className='button' type='button' value={`Copy ${buttonText}`} onClick={handleClick} />
 }
 
 export default CopyButton;

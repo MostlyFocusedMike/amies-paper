@@ -15,9 +15,9 @@ const App = () => {
   const handleCheck = async (e) => {
     const newRows = [...rows];
     const row = rows[e.target.dataset.idx];
-    row.published = e.target.checked;
-    await updateRow(row);
+    row.published = e.target.checked ? true : ''; // google annoyingly saves FALSE and TRUE strings, both of which evaluate to true
     setRows(newRows);
+    await updateRow(row);
   }
 
   return <div>
@@ -38,35 +38,41 @@ const App = () => {
           }
           return result;
         }
-        return <li key = {row.timestamp} className="card">
-          <p>{row.published ? 'Published' : 'Not Published'}</p>
-          <div className='section name'>
-            <h2>{row.name}</h2>
-            <CopyButton buttonText='Name' copyValue={row.name}></CopyButton>
-            <hr />
+        return <li key = {row.timestamp}>
+          <div className={row.published ? 'published' : 'not-published'}>
+            <p>{row.published ? 'Published' : 'Not Published'}</p>
           </div>
+          <div  className="card">
+            <div className='section name'>
+              <h2>{row.name}</h2>
+              <CopyButton buttonText='Name' copyValue={row.name}></CopyButton>
+              <hr />
+            </div>
 
-          <div className='section materials'>
-            <h3>Materials</h3>
-            <p>{row.materials}</p>
-            <CopyButton buttonText='Materials' copyValue={row.materials}></CopyButton>
-            <hr />
-          </div>
+            <div className='section materials'>
+              <h3>Materials</h3>
+              <p>{row.materials}</p>
+              <CopyButton buttonText='Materials' copyValue={row.materials}></CopyButton>
+              <hr />
+            </div>
 
-          <div className='section description'>
-            <h3>Description</h3>
-            <pre>{formatDescription(row)}</pre>
-            <CopyButton buttonText='Description' copyValue={formatDescription(row)}></CopyButton>
-            <hr />
+            <div className='section description'>
+              <h3>Description</h3>
+              <pre>{formatDescription(row)}</pre>
+              <CopyButton buttonText='Description' copyValue={formatDescription(row)}></CopyButton>
+              <hr />
+            </div>
+            <div className='section weight'>
+              <h3>Weight: {row.weight}</h3>
+              <CopyButton buttonText='Weight' copyValue={row.weight}></CopyButton>
+              <hr />
+            </div>
+            <p className='timestamp'>Posted: {row.timestamp}</p>
+            <label>Published?</label>
+            <input type='checkbox' checked={row.published || false} data-idx={idx} onChange={handleCheck} />
           </div>
-          <div className='section weight'>
-            <h3>Weight: {row.weight}</h3>
-            <CopyButton buttonText='Weight' copyValue={row.weight}></CopyButton>
-            <hr />
-          </div>
-          <p className='timestamp'>Posted: {row.timestamp}</p>
-          <input type='checkbox' checked={row.published || false} data-idx={idx} onChange={handleCheck} />
         </li>
+
       })
     }
     </ol>
