@@ -15,6 +15,7 @@ html {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
     align-items: flex-start;
     li {
       padding: 0;
@@ -26,13 +27,14 @@ html {
       border-radius: 0.2rem 0.2rem 0 0;
       p {
         margin: 0;
+        font-size: 1.2rem;
         text-align: right;
         padding: 1rem;
         color: white;
       }
     }
     .published {
-      background-color: #3d88c2;
+      background-color: #00a441;
     }
     .not-published {
       background-color: #c23d3d;
@@ -47,6 +49,9 @@ html {
       .section {
         margin: 0rem auto;
         padding: 0.25rem;
+        p, pre {
+          margin-top: 0;
+        }
       }
       h2, h3 {
         margin: 0;
@@ -63,12 +68,12 @@ html {
         text-decoration: none;
         outline: none;
         color: rgb(247, 247, 247);
-        background-color: #3d51c2;
+        background-color: #3083c2;
         border: 0.1rem solid transparent;
-        border-radius: 0.2rem;
+        border-radius: 0.3rem;
         box-shadow: 0.1rem 0.2rem rgb(97, 97, 97);
         &:hover {
-          background-color: #240090;
+          background-color: #1675bd;
         }
         &:active {
           background-color: #0C0032;
@@ -92,8 +97,19 @@ html {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: rgb(55, 55, 55);
   }
+  .published-check {
+    text-align: right;
+    display: flex;
+    justify-content: center;
+    label, input {
+      display: block;
+    }
+  }
 
   p.timestamp {
     text-align: center;
+    font-size: 0.8rem;
+    font-style: italic;
+    margin: 1rem 0 0;
   }
 }

@@ -50,29 +50,28 @@ const App = () => {
             </div>
 
             <div className='section materials'>
-              <h3>Materials</h3>
               <p>{row.materials}</p>
               <CopyButton buttonText='Materials' copyValue={row.materials}></CopyButton>
               <hr />
             </div>
 
             <div className='section description'>
-              <h3>Description</h3>
               <pre>{formatDescription(row)}</pre>
               <CopyButton buttonText='Description' copyValue={formatDescription(row)}></CopyButton>
               <hr />
             </div>
             <div className='section weight'>
-              <h3>Weight: {row.weight}</h3>
+              <p>Weight: {row.weight}</p>
               <CopyButton buttonText='Weight' copyValue={row.weight}></CopyButton>
               <hr />
             </div>
+            <div className='published-check'>
+              <input id={`check-${idx}`}type='checkbox' checked={row.published || false} data-idx={idx} onChange={handleCheck} />
+              <label htmlFor={`check-${idx}`}>Published?</label>
+            </div>
             <p className='timestamp'>Posted: {row.timestamp}</p>
-            <label>Published?</label>
-            <input type='checkbox' checked={row.published || false} data-idx={idx} onChange={handleCheck} />
           </div>
         </li>
-
       })
     }
     </ol>
