@@ -24,8 +24,8 @@ class SheetsWrapper {
     return spreadsheets;
   }
 
-  // This deals with multiple rows
-  convertIdxsToKeys = (rows) => {
+  // This deals with rows in an array (which is what google returns)
+  convertIdxsToKeys = (rows, providedId = 0) => { // provided Id should def be updated so it's less brittle
       const final = []
       for (let i = 0; i < rows.length; i++) {
         const row = rows[i];
@@ -33,7 +33,7 @@ class SheetsWrapper {
         for (let i = 0; i < row.length; i++) {
           objRow[this.idxToKey[i]] = row[i];
         }
-        objRow.id = i + 2;
+        objRow.id = (providedId) ? providedId : i + 2;
         final.push(objRow)
       }
       return final.reverse();
@@ -56,7 +56,7 @@ class SheetsWrapper {
 
     const sheets = await this.spreadsheets()
     const {data: { values }} = await sheets.values.get(request);
-    return this.convertIdxsToKeys(values);
+    return this.convertIdxsToKeys(values, true);
   }
 
   changeRowsUtil = async (A1NotationRange, rows, type) => {
@@ -79,9 +79,11 @@ class SheetsWrapper {
     return values
   }
 
-  updateRow = async (A1NotationRange, rowObj) => {
+  updateRow = async (rowObj) => {
     const row = this.convertKeysToIdxs(rowObj);
-    return this.changeRowsUtil(A1NotationRange, [row], 'create')
+    const A1NotationRange = `A${rowObj.id}:H`;
+    const changedRow = await this.changeRowsUtil(A1NotationRange, [row], 'create')
+    return this.convertIdxsToKeys(changedRow, rowObj.id)[0];
   }
 
   appendRows = async (rows, A1NotationRange = 'A:Z') => {

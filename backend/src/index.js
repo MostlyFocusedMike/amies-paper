@@ -17,14 +17,10 @@ app.get('/api/v1/rows', async (req, res) => {
   res.send(spreadsheets);
 })
 
-app.post('/api/v1/rows/:id', async (req, res) => {
-  const rowNotation = `A${req.params.id}:H`;
-
+app.put('/api/v1/rows/:id', async (req, res) => {
   const rowObj = req.body;
-  console.log('req.body: ', req.body);
-  const spreadsheets = await req.sheets.updateRow(rowNotation, rowObj);
-
-  res.send('ok')
+  const updatedRow = await req.sheets.updateRow(rowObj);
+  res.send(updatedRow);
 })
 
 app.get('*', (req, res, next) => {
