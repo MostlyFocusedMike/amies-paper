@@ -3,8 +3,9 @@ const authorize = require('./auth-sheets')
 
 class SheetsWrapper {
   constructor() {
-    this.sheetId = '1fXKCP8H9-rdLKg-WRS9PcOVeLWFMrwS2QlMkR-QSYkk';
-    // this.sheetId = '1aXu0bNh1kAmhDgLyjFQfHR1OmClwwTdiOUkRcmzfHSA'; // testing
+    // this.sheetId = '1fXKCP8H9-rdLKg-WRS9PcOVeLWFMrwS2QlMkR-QSYkk';
+    this.sheetId = '1aXu0bNh1kAmhDgLyjFQfHR1OmClwwTdiOUkRcmzfHSA'; // testing
+    this.numOfColumns = 8;
     this.idxToKey = {
         0: 'timestamp',
         1: 'name',
@@ -13,6 +14,7 @@ class SheetsWrapper {
         4: 'amount',
         5: 'info',
         6: 'weight',
+        7: 'published',
     }
   }
 
@@ -22,16 +24,28 @@ class SheetsWrapper {
     return spreadsheets;
   }
 
+  // This deals with multiple rows
   convertIdxsToKeys = (rows) => {
       const final = []
-      for (const row of rows) {
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
         const objRow = {};
         for (let i = 0; i < row.length; i++) {
-          objRow[this.idxToKey[i]] = row[i]
+          objRow[this.idxToKey[i]] = row[i];
         }
+        objRow.id = i + 2;
         final.push(objRow)
       }
       return final.reverse();
+  }
+
+  // this returns a single row
+  convertKeysToIdxs = (rowObj) => {
+    const result = [];
+    for (let i = 0; i < this.numOfColumns; i++) {
+      result.push(rowObj[this.idxToKey[i]])
+    }
+    return result;
   }
 
   getRows = async (A1NotationRange = 'A2:G') => {
@@ -65,8 +79,9 @@ class SheetsWrapper {
     return values
   }
 
-  updateRows = async (A1NotationRange, rows) => {
-    return this.changeRowsUtil(A1NotationRange, rows, 'create')
+  updateRow = async (A1NotationRange, rowObj) => {
+    const row = this.convertKeysToIdxs(rowObj);
+    return this.changeRowsUtil(A1NotationRange, [row], 'create')
   }
 
   appendRows = async (rows, A1NotationRange = 'A:Z') => {

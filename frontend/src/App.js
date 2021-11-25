@@ -59,6 +59,7 @@ const App = () => {
             <hr />
           </div>
           <p className='timestamp'>Posted: {row.timestamp}</p>
+          <p>{row.id}</p>
         </li>
       })
     }

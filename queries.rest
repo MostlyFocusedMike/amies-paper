@@ -1,0 +1,14 @@
+##################
+POST http://localhost:80/api/v1/rows/4
+content-type: application/json
+
+{
+    "timestamp": "9/3/2021 21:58:40",
+    "name": "TEST Best Card For Best Grandson",
+    "materials": "A bunch of buttons",
+    "measurements": "4x8",
+    "amount": "1",
+    "info": "Blank Inside, Envelope Included",
+    "weight": "1oz",
+    "published": true
+}
