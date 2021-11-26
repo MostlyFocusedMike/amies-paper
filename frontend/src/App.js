@@ -30,13 +30,13 @@ const App = () => {
         const formatDescription = ({measurements, amount, info}) => {
           let result = '';
           const finalMeasures = measurements.replace(/( inches)|( in\.)|( in)/g, '')
-          result += `Measures ${finalMeasures} inches,\n`
-          result += amount > 1 ? `Set of ${amount},\n` : '';
+          result += `Measures ${finalMeasures} inches\n`
+          result += amount > 1 ? `Set of ${amount}\n` : '';
           const infoArr = info.split(', ')
           for (let i = 0; i < infoArr.length; i++) {
             let text = infoArr[i];
             text = text.replaceAll('Sentiment', 'Shop name')
-            result += `${text}${i === infoArr.length - 1 ? '' : ',\n'}`;
+            result += `${text}${i === infoArr.length - 1 ? '' : '\n'}`;
           }
           return result;
         }
@@ -51,22 +51,24 @@ const App = () => {
               <hr />
             </div>
 
+            <div className='section description'>
+              <pre>{formatDescription(row)}</pre>
+              <CopyButton buttonText='Description' copyValue={formatDescription(row)}></CopyButton>
+              <hr />
+            </div>
+
             <div className='section materials'>
               <p>{row.materials}</p>
               <CopyButton buttonText='Materials' copyValue={row.materials}></CopyButton>
               <hr />
             </div>
 
-            <div className='section description'>
-              <pre>{formatDescription(row)}</pre>
-              <CopyButton buttonText='Description' copyValue={formatDescription(row)}></CopyButton>
-              <hr />
-            </div>
             <div className='section weight'>
               <p>Weight: {row.weight}</p>
               <CopyButton buttonText='Weight' copyValue={row.weight}></CopyButton>
               <hr />
             </div>
+
             <div className='published-check'>
               <input id={`check-${idx}`}type='checkbox' checked={row.published || false} data-idx={idx} onChange={handleCheck} />
               <label htmlFor={`check-${idx}`}>Published?</label>
