@@ -7,6 +7,7 @@ const App = () => {
   useEffect(() => {
     const loadRows = async () => {
       const rows = await getRows();
+      rows.sort((a) => a.published ? 1 : -1);
       setRows(rows);
     };
     loadRows();
@@ -16,6 +17,7 @@ const App = () => {
     const newRows = [...rows];
     const row = rows[e.target.dataset.idx];
     row.published = e.target.checked ? true : ''; // google annoyingly saves FALSE and TRUE strings, both of which evaluate to true
+    newRows.sort((a) => a.published ? 1 : -1);
     setRows(newRows);
     await updateRow(row);
   }
