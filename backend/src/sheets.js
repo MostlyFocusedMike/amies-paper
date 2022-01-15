@@ -3,9 +3,8 @@ const authorize = require('./auth-sheets')
 
 class SheetsWrapper {
   constructor() {
-    this.sheetId = '1fXKCP8H9-rdLKg-WRS9PcOVeLWFMrwS2QlMkR-QSYkk';
-    // this.sheetId = '1aXu0bNh1kAmhDgLyjFQfHR1OmClwwTdiOUkRcmzfHSA'; // testing
-    this.numOfColumns = 8;
+    // this.sheetId = '1fXKCP8H9-rdLKg-WRS9PcOVeLWFMrwS2QlMkR-QSYkk';
+    this.sheetId = '1aXu0bNh1kAmhDgLyjFQfHR1OmClwwTdiOUkRcmzfHSA'; // testing
     this.idxToKey = {
         0: 'timestamp',
         1: 'name',
@@ -15,7 +14,9 @@ class SheetsWrapper {
         5: 'info',
         6: 'weight',
         7: 'published',
+        8: 'deleted'
     }
+    this.numOfColumns = Object.keys(this.idxToKey).length;
   }
 
   spreadsheets = async () => {
@@ -24,11 +25,17 @@ class SheetsWrapper {
     return spreadsheets;
   }
 
+  isDeleted = (row) => {
+    const deletedIdx = 8;
+    return !!row[deletedIdx]
+  }
+
   // This deals with rows in an array (which is what google returns)
   convertIdxsToKeys = (rows, providedId = 0) => { // provided Id should def be updated so it's less brittle
       const final = []
       for (let i = 0; i < rows.length; i++) {
         const row = rows[i];
+        if (this.isDeleted(row)) continue;
         const objRow = {};
         for (let i = 0; i < row.length; i++) {
           objRow[this.idxToKey[i]] = row[i];
@@ -48,7 +55,7 @@ class SheetsWrapper {
     return result;
   }
 
-  getRows = async (A1NotationRange = 'A2:H') => {
+  getRows = async (A1NotationRange = 'A2:I') => {
     const request = {
       spreadsheetId: this.sheetId,
       range: A1NotationRange,
