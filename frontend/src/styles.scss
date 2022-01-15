@@ -85,6 +85,21 @@ html {
         }
       }
 
+      .danger {
+        background-color: #c23030;
+        &:hover {
+          background-color: #bd1616;
+        }
+        &:active {
+          background-color: #0C0032;
+          transform: translateY(0.1rem);
+          box-shadow: 0 0.1rem rgb(52, 52, 52);
+        }
+        &:focus {
+          border: 0.1rem solid #f49494;
+        }
+      }
+
       hr {
         border: 1px solid rgb(55, 55, 55);
         margin-top: 1rem;
@@ -113,3 +128,4 @@ html {
     margin: 1rem 0 0;
   }
 }
+

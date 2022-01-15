@@ -11,3 +11,12 @@ export const updateRow = async (rowObj) => {
   }).then(r => r.json());
   return data;
 }
+
+export const deleteRow = async (rowObj) => {
+  const data = await fetch(`/api/v1/rows/${rowObj.id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(rowObj),
+  }).then(r => r.json());
+  return data;
+}

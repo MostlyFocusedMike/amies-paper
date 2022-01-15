@@ -88,9 +88,17 @@ class SheetsWrapper {
 
   updateRow = async (rowObj) => {
     const row = this.convertKeysToIdxs(rowObj);
-    const A1NotationRange = `A${rowObj.id}:H`;
+    const A1NotationRange = `A${rowObj.id}:I`;
     const changedRow = await this.changeRowsUtil(A1NotationRange, [row], 'create')
     return this.convertIdxsToKeys(changedRow, rowObj.id)[0];
+  }
+
+  deleteRow = async (rowObj) => {
+    rowObj.deleted = true;
+    const row = this.convertKeysToIdxs(rowObj);
+    row.deleted = true;
+    const A1NotationRange = `A${rowObj.id}:I`;
+    this.changeRowsUtil(A1NotationRange, [row], 'create')
   }
 
   appendRows = async (rows, A1NotationRange = 'A:Z') => {

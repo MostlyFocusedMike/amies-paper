@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getRows, updateRow } from './adapters/main';
+import { getRows, updateRow, deleteRow } from './adapters/main';
 import CopyButton from './components/CopyButton';
 
 const App = () => {
@@ -20,6 +20,12 @@ const App = () => {
     newRows.sort((a) => a.published ? 1 : -1);
     setRows(newRows);
     await updateRow(row);
+  }
+
+  const handleDelete = async (e) => {
+    const deletedRow = rows[e.target.dataset.idx];
+    setRows(rows.filter(row => row.id !== deletedRow.id));
+    await deleteRow(deletedRow);
   }
 
   return <div>
@@ -74,6 +80,10 @@ const App = () => {
               <label htmlFor={`check-${idx}`}>Published?</label>
             </div>
             <p className='timestamp'>Posted: {row.timestamp}</p>
+
+            <div className='delete-button'>
+              <button className="button danger" onClick={handleDelete} data-idx={idx}>Delete</button>
+            </div>
           </div>
         </li>
       })

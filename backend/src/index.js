@@ -23,6 +23,12 @@ app.put('/api/v1/rows/:id', async (req, res) => {
   res.send(updatedRow);
 })
 
+app.delete('/api/v1/rows/:id', async (req, res) => {
+  const rowObj = req.body;
+  await req.sheets.deleteRow(rowObj);
+  res.status(200);
+})
+
 app.get('*', (req, res, next) => {
   console.log('req.originalUrl: ', req.originalUrl);
   if (req.originalUrl.includes('/api')) return next();
